@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bwo1r1epj3hc3" path="res://assets/altar01.glb" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://b2j4rjs3jka31" path="res://assets/tombstone01.glb" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://bolgnktifvy4a" path="res://player.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://ddbwyiym40g3q" path="res://camera_follow.gd" id="5_lquwl"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8dnhd"]
 size = Vector2(40, 40)
@@ -21,6 +22,9 @@ fog_sky_affect = 0.3
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8dnhd"]
 radius = 0.3
 height = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_8dnhd"]
+size = Vector3(0.11779785, 0.14355469, 0.58447266)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8dnhd"]
 radius = 0.3
@@ -56,9 +60,17 @@ script = ExtResource("4_1bvp3")
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.9, 0)
 mesh = SubResource("CapsuleMesh_8dnhd")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/MeshInstance3D" unique_id=205659848]
+transform = Transform3D(0.9999838, 0, 0, 0, 1, 0, 0, 0, 0.9999838, 0.015029338, 0.38586247, 0.27379742)
+mesh = SubResource("BoxMesh_8dnhd")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=488511335]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_8dnhd")
 
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=572937691]
-transform = Transform3D(0.7071068, -0.48224565, 0.51714516, 0, 0.7313537, 0.6819984, -0.7071068, -0.48224565, 0.51714516, 6, 8, 6)
+[node name="Camera3D" type="Camera3D" parent="." unique_id=572937691]
+transform = Transform3D(0.7071068, -0.48224565, 0.51714516, 0, 0.7313537, 0.6819984, -0.7071068, -0.48224565, 0.51714516, 4.04062, 6.99508, 6.890439)
+fov = 60.0
+script = ExtResource("5_lquwl")
+target_path = NodePath("../Player")
+offset = Vector3(5, 6, 5)
