@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bl5q0sj8s583b"]
+
+[ext_resource type="PackedScene" uid="uid://cwtmpvtdfcq57" path="res://assets/idol_hooded_r1.glb" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bwo1r1epj3hc3" path="res://assets/altar01.glb" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://b2j4rjs3jka31" path="res://assets/tombstone01.glb" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://bolgnktifvy4a" path="res://player.gd" id="4_1bvp3"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8dnhd"]
+size = Vector2(40, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqnhg"]
+albedo_color = Color(0.74509805, 0.74509805, 0.74509805, 1)
+
+[sub_resource type="Environment" id="Environment_8dnhd"]
+background_mode = 1
+background_color = Color(0.16470589, 0.16470589, 0.18039216, 1)
+fog_enabled = true
+fog_density = 0.02
+fog_sky_affect = 0.3
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8dnhd"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8dnhd"]
+radius = 0.3
+height = 1.8
+
+[node name="Main" type="Node3D" unique_id=422451519]
+
+[node name="idol_hooded_r1" parent="." unique_id=1758749568 instance=ExtResource("1_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25504148, 0.9831792, -1.8633788)
+
+[node name="altar01" parent="." unique_id=414439640 instance=ExtResource("2_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7603755, 0.39759612, 1.3283004)
+
+[node name="tombstone01" parent="." unique_id=203780881 instance=ExtResource("3_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.139905, 0.9642453, -3.754964)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=826962172]
+transform = Transform3D(0.8660254, -0.38302222, 0.32139382, 0, 0.64278764, 0.76604444, -0.5, -0.66341394, 0.5566704, 4.8402853, 4.452295, 3.665942)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=268464349]
+mesh = SubResource("PlaneMesh_8dnhd")
+surface_material_override/0 = SubResource("StandardMaterial3D_iqnhg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=728007935]
+environment = SubResource("Environment_8dnhd")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1264299395]
+script = ExtResource("4_1bvp3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=1563083674]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_8dnhd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=488511335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_8dnhd")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=572937691]
+transform = Transform3D(0.7071068, -0.48224565, 0.51714516, 0, 0.7313537, 0.6819984, -0.7071068, -0.48224565, 0.51714516, 6, 8, 6)
