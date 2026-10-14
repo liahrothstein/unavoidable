@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b2j4rjs3jka31" path="res://assets/tombstone01.glb" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://bolgnktifvy4a" path="res://player.gd" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://ddbwyiym40g3q" path="res://camera_follow.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://blla88kb15ksl" path="res://dummy.gd" id="6_7mycd"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8dnhd"]
 size = Vector2(40, 40)
@@ -27,6 +28,17 @@ height = 1.8
 size = Vector3(0.11779785, 0.14355469, 0.58447266)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8dnhd"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dnhd"]
+size = Vector3(1.2, 1.5, 1.2)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_iqnhg"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iqnhg"]
 radius = 0.3
 height = 1.8
 
@@ -68,9 +80,27 @@ mesh = SubResource("BoxMesh_8dnhd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_8dnhd")
 
+[node name="Hitbox" type="Area3D" parent="Player" unique_id=1338301995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Hitbox" unique_id=182913465]
+shape = SubResource("BoxShape3D_8dnhd")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=572937691]
 transform = Transform3D(0.7071068, -0.48224565, 0.51714516, 0, 0.7313537, 0.6819984, -0.7071068, -0.48224565, 0.51714516, 4.04062, 6.99508, 6.890439)
 fov = 60.0
 script = ExtResource("5_lquwl")
 target_path = NodePath("../Player")
 offset = Vector3(5, 6, 5)
+
+[node name="Dummy" type="StaticBody3D" parent="." unique_id=1226577149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+script = ExtResource("6_7mycd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Dummy" unique_id=714836042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_iqnhg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dummy" unique_id=1169974684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_iqnhg")
